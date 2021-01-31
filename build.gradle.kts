@@ -21,6 +21,7 @@ repositories {
 
 dependencies {
     api(kotlin("stdlib-jdk8"))
+    compileOnly("org.jetbrains:annotations:20.1.0")
 }
 
 tasks.withType<KotlinCompile> {

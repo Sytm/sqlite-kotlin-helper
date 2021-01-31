@@ -1,5 +1,6 @@
 package de.md5lukas.jdbc
 
+import org.intellij.lang.annotations.Language
 import java.sql.Connection
 import java.sql.PreparedStatement
 import java.sql.ResultSet
@@ -7,7 +8,7 @@ import java.sql.ResultSet
 /**
  * This function prepares a statement, inserts the values into the [PreparedStatement], executes it, calls [block] on the first row and returns the value.
  */
-inline fun <T> Connection.selectFirst(query: String, vararg values: Any?, block: ResultSet.() -> T): T? =
+inline fun <T> Connection.selectFirst(@Language("SQLite") query: String, vararg values: Any?, block: ResultSet.() -> T): T? =
     prepareStatement(query).setValues(values).executeQuery().use {
         if (it.next()) {
             it.block()
@@ -20,7 +21,7 @@ inline fun <T> Connection.selectFirst(query: String, vararg values: Any?, block:
  * This function prepares a statement, inserts the values into the [PreparedStatement], executes it, calls [block] for each row and collects the returned
  * values in a list.
  */
-inline fun <T> Connection.select(query: String, vararg values: Any?, block: ResultSet.() -> T): List<T> =
+inline fun <T> Connection.select(@Language("SQLite") query: String, vararg values: Any?, block: ResultSet.() -> T): List<T> =
     prepareStatement(query).setValues(values).executeQuery().use {
         val result = mutableListOf<T>()
 
@@ -34,7 +35,7 @@ inline fun <T> Connection.select(query: String, vararg values: Any?, block: Resu
 /**
  * This function prepares a statement, inserts the values into the [PreparedStatement] and executes it.
  */
-fun Connection.update(sql: String, vararg values: Any?): Int =
+fun Connection.update(@Language("SQLite") sql: String, vararg values: Any?): Int =
     prepareStatement(sql).setValues(values).executeUpdate()
 
 /**
@@ -47,6 +48,6 @@ fun PreparedStatement.setValues(vararg values: Any?): PreparedStatement {
         this.setObject(index, value)
     }
 
-    return this;
+    return this
 }
 
