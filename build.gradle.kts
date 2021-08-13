@@ -1,27 +1,25 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.4.21"
-    id("org.jetbrains.dokka") version "1.4.20"
+    kotlin("jvm") version "1.5.21"
+    id("org.jetbrains.dokka") version "1.5.0"
     `maven-publish`
 }
 
 group = "de.md5lukas"
-version = "1.0.0-SNAPSHOT"
-description = "PainVentories"
+version = "1.0.0"
+description = "Helpers methods for SQLite to reduce boilerplate code"
 
 repositories {
     mavenLocal()
     mavenCentral()
-    jcenter()
 
-    maven(url = "https://repo.sytm.de/repository/maven-hosted/")
     maven(url = "https://oss.sonatype.org/content/groups/public/")
 }
 
 dependencies {
     api(kotlin("stdlib-jdk8"))
-    compileOnly("org.jetbrains:annotations:20.1.0")
+    compileOnly("org.jetbrains:annotations:21.0.1")
 }
 
 tasks.withType<KotlinCompile> {
