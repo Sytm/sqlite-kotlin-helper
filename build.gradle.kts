@@ -1,3 +1,4 @@
+import jdk.nashorn.internal.runtime.Debug.id
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -7,7 +8,7 @@ plugins {
 }
 
 group = "de.md5lukas"
-version = "1.0.0"
+version = "1.0.1"
 description = "Helpers methods for SQLite to reduce boilerplate code"
 
 repositories {
