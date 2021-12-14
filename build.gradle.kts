@@ -1,13 +1,13 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.21"
-    id("org.jetbrains.dokka") version "1.5.0"
+    kotlin("jvm") version "1.6.0"
+    id("org.jetbrains.dokka") version "1.6.0"
     `maven-publish`
 }
 
 group = "de.md5lukas"
-version = "1.0.1"
+version = "1.1.0"
 description = "Helpers methods for SQLite to reduce boilerplate code"
 
 repositories {
@@ -19,7 +19,6 @@ repositories {
 
 dependencies {
     api(kotlin("stdlib-jdk8"))
-    compileOnly("org.jetbrains:annotations:21.0.1")
 }
 
 tasks.withType<KotlinCompile> {

@@ -4,15 +4,25 @@ import java.io.File
 import java.sql.Connection
 import java.sql.DriverManager
 
-/**
- * Helper class for getting SQLite connections.
- *
- * @constructor
- * Creates a new SQLiteHelper instance. The SQLite database will use the [file] to store the data.
- */
-open class SQLiteHelper(
-    private val file: File,
+
+open class SQLiteHelper private constructor(
+    private val path: String,
 ) {
+    /**
+     * Helper class for getting SQLite connections.
+     *
+     * @constructor
+     * Creates a new SQLiteHelper instance. The SQLite database will be stored in memory.
+     */
+    constructor() : this(":memory:")
+    /**
+     * Helper class for getting SQLite connections.
+     *
+     * @constructor
+     * Creates a new SQLiteHelper instance. The SQLite database will use the [file] to store the data.
+     */
+    constructor(file: File) : this(file.absolutePath)
+
     init {
         try {
             Class.forName("org.sqlite.JDBC")
@@ -22,7 +32,7 @@ open class SQLiteHelper(
     }
 
     private val connectionLazy: Lazy<Connection> = lazy {
-        DriverManager.getConnection("jdbc:sqlite:${file.absolutePath}")
+        DriverManager.getConnection("jdbc:sqlite:${path}")
     }
 
     /**
