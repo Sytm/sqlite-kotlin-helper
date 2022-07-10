@@ -1,8 +1,8 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.6.0"
-    id("org.jetbrains.dokka") version "1.6.0"
+    kotlin("jvm") version "1.7.10"
+    id("org.jetbrains.dokka") version "1.7.0"
     `maven-publish`
 }
 
@@ -11,7 +11,6 @@ version = "1.1.0"
 description = "Helpers methods for SQLite to reduce boilerplate code"
 
 repositories {
-    mavenLocal()
     mavenCentral()
 
     maven(url = "https://oss.sonatype.org/content/groups/public/")
@@ -39,16 +38,17 @@ val javadocJar by tasks.creating(Jar::class) {
 publishing {
     repositories {
         maven {
-            val releasesRepoUrl = "https://repo.sytm.de/repository/maven-releases/"
-            val snapshotsRepoUrl = "https://repo.sytm.de/repository/maven-snapshots/"
-            url = uri(if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl)
-            credentials {
-                if (project.hasProperty("mavenUsername")) {
-                    username = project.properties["mavenUsername"] as String
-                }
-                if (project.hasProperty("mavenPassword")) {
-                    password = project.properties["mavenPassword"] as String
-                }
+            name = "md5lukasReposilite"
+
+            url = uri("https://repo.md5lukas.de/${if (version.toString().endsWith("-SNAPSHOT")) {
+                "snapshots"
+            } else {
+                "releases"
+            }}")
+
+            credentials(PasswordCredentials::class)
+            authentication {
+                create<BasicAuthentication>("basic")
             }
         }
     }
