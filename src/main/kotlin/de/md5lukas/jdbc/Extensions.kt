@@ -32,6 +32,21 @@ inline fun <T> Connection.select(query: String, vararg values: Any?, block: Resu
     }
 
 /**
+ * This function prepares a statement, inserts the values into the [PreparedStatement], executes it, calls [block] for each row and collects the returned not-null
+ * values in a list.
+ */
+inline fun <T> Connection.selectNotNull(query: String, vararg values: Any?, block: ResultSet.() -> T?): List<T> =
+    prepareStatement(query).setValues(*values).executeQuery().use {
+        val result = mutableListOf<T>()
+
+        while (it.next()) {
+            result.add(it.block() ?: continue)
+        }
+
+        result
+    }
+
+/**
  * This function prepares a statement, inserts the values into the [PreparedStatement] and executes it.
  */
 fun Connection.update(sql: String, vararg values: Any?): Int =
