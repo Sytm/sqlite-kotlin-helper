@@ -21,7 +21,7 @@ inline fun <T> Connection.selectFirst(@Language("SQL") query: String, vararg val
  * This function prepares a statement, inserts the values into the [PreparedStatement], executes it, calls [block] for each row and collects the returned
  * values in a list.
  */
-inline fun <T> Connection.select(@Language("SQL") query: String, vararg values: Any?, block: ResultSet.() -> T): List<T> =
+inline fun <T> Connection.select(@Language("SQL") query: String, vararg values: Any?, block: ResultSet.() -> T): MutableList<T> =
     prepareStatement(query).setValues(*values).executeQuery().use {
         val result = mutableListOf<T>()
 
@@ -36,7 +36,7 @@ inline fun <T> Connection.select(@Language("SQL") query: String, vararg values: 
  * This function prepares a statement, inserts the values into the [PreparedStatement], executes it, calls [block] for each row and collects the returned not-null
  * values in a list.
  */
-inline fun <T> Connection.selectNotNull(@Language("SQL") query: String, vararg values: Any?, block: ResultSet.() -> T?): List<T> =
+inline fun <T> Connection.selectNotNull(@Language("SQL") query: String, vararg values: Any?, block: ResultSet.() -> T?): MutableList<T> =
     prepareStatement(query).setValues(*values).executeQuery().use {
         val result = mutableListOf<T>()
 

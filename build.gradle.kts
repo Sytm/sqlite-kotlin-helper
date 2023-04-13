@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "de.md5lukas"
-version = "1.2.1"
+version = "1.2.2"
 description = "Helpers methods for SQLite to reduce boilerplate code"
 
 repositories {
