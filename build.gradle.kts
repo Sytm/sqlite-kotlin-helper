@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "de.md5lukas"
-version = "1.2.0"
+version = "1.2.1"
 description = "Helpers methods for SQLite to reduce boilerplate code"
 
 repositories {
@@ -16,6 +16,7 @@ repositories {
 
 dependencies {
     api(kotlin("stdlib-jdk8"))
+    compileOnly("org.jetbrains:annotations:24.0.1")
 }
 
 kotlin {
